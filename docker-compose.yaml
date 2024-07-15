@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    profiles:
+      - ""
+      - all
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres
+    profiles:
+      - ""
+      - all
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: pg_password
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  pg_admin:
+    image: dpage/pgadmin4:8.9
+    profiles:
+      - debug
+      - all
+    depends_on:
+      - postgres
+    ports:
+      - "8082:80"
+    volumes:
+      - admin_var:/var/lib/pgadmin
+      - admin_data:/pgadmin4
+    environment:
+      PGADMIN_DISABLE_POSTFIX: TRUE
+      PGADMIN_DEFAULT_EMAIL: pg_admin@localhost.localdomain
+      PGADMIN_DEFAULT_PASSWORD: pg_password
+      POSTGRES_PASSWORD: pg_password
+
+volumes:
+  admin_data:
+  admin_var:
+  postgres_data:

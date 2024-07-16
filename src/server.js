@@ -1,6 +1,8 @@
 const fastify = require('./app')({ logger: true });
 
-fastify.listen({ port: 8080 }, (err) => {
+const bind_host = process.env.APP_BIND_HOST || "localhost"
+
+fastify.listen({ port: 8080, host: bind_host }, (err) => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);

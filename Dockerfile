@@ -5,4 +5,4 @@ WORKDIR /api
 # This is not ideal, but it works
 COPY ./ ./
 
-CMD ["node", "src/server.js"]
+CMD ["node", "./src/server.js"]

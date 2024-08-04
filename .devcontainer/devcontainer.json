@@ -1,0 +1,7 @@
+// Info https://containers.dev/implementors/json_reference/
+{
+  //	name of the dev container
+  "name": "project-v2",
+  //	Or use a Dockerfile here, more info: https://containers.dev/guide/dockerfile
+  "image": "node:20-bookworm"
+}
